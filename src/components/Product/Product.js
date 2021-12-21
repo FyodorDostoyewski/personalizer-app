@@ -1,12 +1,20 @@
 import styles from './Product.module.scss';
 import clsx from 'clsx';
+import { useState } from 'react';
 import Button from '../Button/Button';
+import PropTypes from'prop-types';
+// import Products from '../data/products.js'
 
 const Product = props => {
+  const [currentColor, setCurrentColor] = useState();
+  const [currentSize, setCurrentSize] = useState();
+
+
+
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
-        <img 
+        <img
           className={styles.image}
           alt="Kodilla shirt"
           src={`${process.env.PUBLIC_URL}/images/products/shirt-kodilla--black.jpg`} />
@@ -42,5 +50,7 @@ const Product = props => {
     </article>
   )
 };
+
+Product.propTypes = {Product: PropTypes.func.isRequired};
 
 export default Product;
