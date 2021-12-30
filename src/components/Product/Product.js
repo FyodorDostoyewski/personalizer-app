@@ -6,13 +6,24 @@ import PropTypes from'prop-types';
 // import productsData from '../../data/products';
 
 const Product = props => {
-  const [currentColor, setCurrentColor] = useState(props.color[0]);
-  const [currentSize, setCurrentSize] = useState('S');
+  const [currentColor, setCurrentColor] = useState(props.colors[0]);
+  const [currentSize, setCurrentSize] = useState(props.sizes[0]);
 
-console.log(props)
 const prepareColorClassName = color => {
   return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
 }
+const [price, setPrice] = useState(props.sizes)
+const getPrice = useMemo(() =>{
+  return setPrice(() => {
+    if(currentSize === props.additionalPrice){
+    return props.additionalPrice + props.basePrice}
+  });
+});
+
+
+
+
+
 
   return (
     <article className={styles.product}>
@@ -20,12 +31,12 @@ const prepareColorClassName = color => {
         <img
         className={styles.image}
         alt={props.title}
-        src={props.name === 'kodilla' ? `${process.env.PUBLIC_URL}/images/products/shirt-kodilla--${currentColor}.jpg` : `${process.env.PUBLIC_URL}/images/products/shirt-react--${currentColor}.jpg` }/>
+        src={`${process.env.PUBLIC_URL}/images/products/shirt-${props.name}--${currentColor}.jpg`} />
       </div>
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price:{props.basePrice}</span>
+          <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
@@ -42,7 +53,7 @@ const prepareColorClassName = color => {
             <ul className={styles.choices}>
             {props.colors.map(item =>
               <li key={item}>
-                <button onClick={() => setCurrentColor(color)} type="button" className={clsx(prepareColorClassName(item), item === color && styles.active)} />
+                <button onClick={() => setCurrentColor(props.colors)} type="button" className={clsx(prepareColorClassName(item), item === props.color && styles.active)} />
               </li>
             )}
             </ul>
