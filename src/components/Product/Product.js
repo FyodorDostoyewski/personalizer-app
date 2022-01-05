@@ -15,9 +15,8 @@ const Product = props => {
 
 
 const getPrice = useMemo(() =>  {
-  if (currentSize.additionalPrice) {
   return currentSize.additionalPrice + props.basePrice
-}
+
 }, [ currentSize, props.basePrice ] )
 
 
